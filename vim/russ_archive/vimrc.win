@@ -1,0 +1,5 @@
+" for Windows, copy to ~/.vimrc
+" from: http://stackoverflow.com/questions/1031396/how-to-share-one-vimrc-file-among-multiple-clients
+set runtimepath+=$HOME/My\ Documents/~/Dropbox/Settings/Vim/vimfiles
+source $HOME\My Documents\Dropbox\Settings\Vim\vimrc.vim
+

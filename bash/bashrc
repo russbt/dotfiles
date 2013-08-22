@@ -1,0 +1,25 @@
+export HOSTNAME_TRIMMED=`hostname | cut -f1 -d'.'`
+
+if [ -f ~/dotfiles/bash/os/$OSTYPE.sh ]; then
+  source ~/dotfiles/bash/os/$OSTYPE.sh
+fi
+
+if [ -f ~/dotfiles/bash/host/$HOSTNAME.sh ]; then
+  source ~/dotfiles/bash/host/$HOSTNAME.sh
+fi
+
+# Set up ctrl-arrow keys for searching
+bind '"\e[A": history-search-backward'
+bind '"\e[B": history-search-forward'
+bind '"\e[C": forward-word'
+bind '"\e[D": backward-word'
+
+# Define useful aliases
+alias h=history
+alias ls='ls $RUSS_LS_OPTS'
+alias ll='ls -l'
+alias startvnc='vncserver -geometry 2400x1350 :22'
+alias stopvnc='vncserver -kill :22'
+alias g='gvim'
+alias gt='gvim --remote-tab-silent'
+
