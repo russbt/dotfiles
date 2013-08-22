@@ -16,27 +16,35 @@ set nocompatible
 :vnoremap <C-Up> <C-Y>
 :inoremap <C-Up> <C-X><C-Y>
 
-" -------- Visual stuff ----------
 if !has("unix") && has("gui_running")
-  " Use a non-hideous font
-  "set guifont=-microsoft-consolas-medium-r-normal-*-*-120-*-*-m-*-microsoft-cp1252 
-  set gfn=Consolas:h12:cANSI
+  " For Windows only,
   " keep swap files on local drive to avoid "Delayed Write Failed" errors
   set dir=c:\\temp
 endif
-if has("unix") && has("gui_running")
-  " Use a non-hideous font
-  " set guifont=-adobe-courier-medium-r-normal-*-*-140-*-*-m-*-iso10646-1
-  set guifont="Monospace 12"
+
+" -------- Visual stuff ----------
+" Use a non-hideous font
+if has("gui_running")
+  if has("gui_gtk2")
+    " Redhat, etc
+    set guifont=Monospace\ 12
+  elseif has("gui_macvim")
+    " MacVim (OS X)
+    set guifont=Consolas:h14
+  elseif has("X11")
+    " Some other unix-y flavor
+    set guifont=-adobe-courier-medium-r-normal-*-*-140-*-*-m-*-iso10646-1
+  else
+    " Windows
+    set gfn=Consolas:h12:cDEFAULT
+  endif
 endif
-if has("gui_macvim")
-  " Use a non-hideous font
-  set guifont=Consolas:h14
-endif
+
 if has("gui_running")
   " Set window height to 45 lines of text
   :set lines=45 columns=120
 endif
+
 " Use a non-hideous color scheme
 "  from: http://vim.sourceforge.net/scripts/script.php?script_id=760
 colorscheme ps_color
