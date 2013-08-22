@@ -16,4 +16,8 @@ alias ss=/apps/smartsvn/latest/bin/smartsvn.sh
 
 # Mentor Questa setup
 . /apps/scripts/mentor.sh > /dev/null
+. /apps/scripts/xilinx.sh > /dev/null
+
+export XIL_LIBS_PATH=/apps/common/xilinx_libs/2013_2_libs
+export MODELSIM=/apps/common/xilinx_libs/modelsim.ini
 

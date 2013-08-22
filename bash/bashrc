@@ -4,8 +4,8 @@ if [ -f ~/dotfiles/bash/os/$OSTYPE.sh ]; then
   source ~/dotfiles/bash/os/$OSTYPE.sh
 fi
 
-if [ -f ~/dotfiles/bash/host/$HOSTNAME.sh ]; then
-  source ~/dotfiles/bash/host/$HOSTNAME.sh
+if [ -f ~/dotfiles/bash/host/$HOSTNAME_TRIMMED.sh ]; then
+  source ~/dotfiles/bash/host/$HOSTNAME_TRIMMED.sh
 fi
 
 # Define useful aliases
