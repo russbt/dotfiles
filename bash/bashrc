@@ -8,12 +8,6 @@ if [ -f ~/dotfiles/bash/host/$HOSTNAME.sh ]; then
   source ~/dotfiles/bash/host/$HOSTNAME.sh
 fi
 
-# Set up ctrl-arrow keys for searching
-bind '"\e[5A": history-search-backward'
-bind '"\e[5B": history-search-forward'
-bind '"\e[5C": forward-word'
-bind '"\e[5D": backward-word'
-
 # Define useful aliases
 alias h=history
 alias ls='ls $RUSS_LS_OPTS'
