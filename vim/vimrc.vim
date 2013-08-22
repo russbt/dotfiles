@@ -22,7 +22,7 @@ if !has("unix") && has("gui_running")
   set dir=c:\\temp
 endif
 
-" -------- Visual stuff ----------
+" -------- Fonts ----------
 " Use a non-hideous font
 if has("gui_running")
   if has("gui_gtk2")
@@ -39,6 +39,41 @@ if has("gui_running")
     set gfn=Consolas:h12:cDEFAULT
   endif
 endif
+
+" Enable adjusting the font size on the fly
+function! AdjustFontSize(amount)
+  if has("gui_gtk2") && has("gui_running")
+    let s:pattern = '^\(.* \)\([1-9][0-9]*\)$'
+    let s:minfontsize = 6
+    let s:maxfontsize = 16
+    let fontname = substitute(&guifont, s:pattern, '\1', '')
+    let cursize = substitute(&guifont, s:pattern, '\2', '')
+    let newsize = cursize + a:amount
+    if (newsize >= s:minfontsize) && (newsize <= s:maxfontsize)
+      let newfont = fontname . newsize
+      let &guifont = newfont
+    endif
+  else
+    echoerr "You need to run the GTK2 version of Vim to use this function."
+  endif
+endfunction
+
+function! LargerFont()
+  call AdjustFontSize(1)
+endfunction
+command! LargerFont call LargerFont()
+
+function! SmallerFont()
+  call AdjustFontSize(-1)
+endfunction
+command! SmallerFont call SmallerFont()
+
+if has("gui_running")
+  map ,= :LargerFont<CR>
+  map ,- :SmallerFont<CR>
+endif
+
+" -------- Other Visual stuff ----------
 
 if has("gui_running")
   " Set window height to 45 lines of text
