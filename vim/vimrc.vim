@@ -41,21 +41,27 @@ if has("gui_running")
 endif
 
 " Enable adjusting the font size on the fly
+" from:  http://vim.wikia.com/wiki/Change_font_size_quickly
 function! AdjustFontSize(amount)
-  if has("gui_gtk2") && has("gui_running")
-    let s:pattern = '^\(.* \)\([1-9][0-9]*\)$'
+  if has("gui_running")
+    if has("gui_gtk2")
+      let s:pattern = '^\(.* \)\([1-9][0-9]*\)\(.*\)$'
+    else
+      let s:pattern = '^\(.*:h\)\(\d\+\)\(.*\)$'
+    endif
+
     let s:minfontsize = 6
     let s:maxfontsize = 16
-    let fontname = substitute(&guifont, s:pattern, '\1', '')
+    let leading = substitute(&guifont, s:pattern, '\1', '')
     let cursize = substitute(&guifont, s:pattern, '\2', '')
+    let trailing = substitute(&guifont, s:pattern, '\3', '')
     let newsize = cursize + a:amount
     if (newsize >= s:minfontsize) && (newsize <= s:maxfontsize)
-      let newfont = fontname . newsize
+      let newfont = leading . newsize . trailing
       let &guifont = newfont
     endif
-  else
-    echoerr "You need to run the GTK2 version of Vim to use this function."
   endif
+  "echoerr "You need to run the GTK2 version of Vim to use this function."
 endfunction
 
 function! LargerFont()
