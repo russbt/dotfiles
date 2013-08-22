@@ -1,0 +1,13 @@
+Initial setup on new machine:
+  cd ~
+  git clone https://github.com/russbt/dotfiles.git
+  # link stuff into dotfiles directory (vim, bash)
+
+Change/add a file:
+  git status
+  git commit -a -m "<comment>"
+  git push -u origin master
+
+Get updates from somewhere else:
+  git pull origin master
+
