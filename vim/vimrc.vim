@@ -263,8 +263,8 @@ set ruler              " show the cursor position all the time
 "    from: http://vim.wikia.com/wiki/Change_end-of-line_format_for_dos-mac-unix
 set showcmd            " display incomplete commands
 set expandtab          " use spaces instead of tabs
-set tabstop=3          " indent by 3 spaces
-set shiftwidth=2
+set tabstop=3          " tabs are worth 3 spaces
+set shiftwidth=3       " auto-indent by 3 spaces
 set diffopt+=iwhite
 " For Win32 GUI: remove 't' flag from 'guioptions': no tearoff menu entries
 " let &guioptions = substitute(&guioptions, "t", "", "g")
