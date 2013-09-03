@@ -164,11 +164,22 @@ if has("autocmd")
   au BufRead,BufNewFile *_vhd.ejava	setfiletype vhdl
   au BufRead,BufNewFile *_v.ejava	setfiletype verilog
 
+  " set up indentation on a per-file-type basis
+  " See: http://vim.wikia.com/wiki/Indenting_source_code
+  set shiftwidth=4   " default to 2 spaces
+  set softtabstop=4  " default to 2 spaces
+  autocmd FileType python setlocal shiftwidth=4 softtabstop=4
+  autocmd FileType verilog setlocal shiftwidth=3 softtabstop=3
+  autocmd FileType verilog_systemverilog setlocal shiftwidth=3 softtabstop=3
+  set autoindent     " always set autoindenting on
+  set expandtab      " use spaces instead of tabs
+
   augroup END
 
 else
 
-  set autoindent		" always set autoindenting on
+  set autoindent     " always set autoindenting on
+  set expandtab      " use spaces instead of tabs
 
 endif " has("autocmd")
 
@@ -262,9 +273,7 @@ set ruler              " show the cursor position all the time
 "        %9*%{&ff=='unix'?'':&ff.'\ format'}%*
 "    from: http://vim.wikia.com/wiki/Change_end-of-line_format_for_dos-mac-unix
 set showcmd            " display incomplete commands
-set expandtab          " use spaces instead of tabs
-set tabstop=3          " tabs are worth 3 spaces
-set shiftwidth=3       " auto-indent by 3 spaces
+
 set diffopt+=iwhite
 " For Win32 GUI: remove 't' flag from 'guioptions': no tearoff menu entries
 " let &guioptions = substitute(&guioptions, "t", "", "g")
