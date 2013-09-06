@@ -1,12 +1,32 @@
+# Save the base part of the hostname. Used to run host-specific scripts
 export HOSTNAME_TRIMMED=`hostname | cut -f1 -d'.'`
 
+# Determine whether this is an interactive shell. If not, we skip a lot of setup
+case $- in
+    *i*)    export RUSS_INTERACTIVE=TRUE
+    ;;
+esac
+
+# Example of testing for interactive mode
+#if [ "$RUSS_INTERACTIVE" = "TRUE" ]; then
+#  echo "BASHRC"
+#fi
+
+# Call OS-specific bashrc
 if [ -f ~/dotfiles/bash/os/$OSTYPE.sh ]; then
   source ~/dotfiles/bash/os/$OSTYPE.sh
 fi
 
+# Call host-specific bashrc
 if [ -f ~/dotfiles/bash/host/$HOSTNAME_TRIMMED.sh ]; then
   source ~/dotfiles/bash/host/$HOSTNAME_TRIMMED.sh
 fi
+
+# User specific environment and startup programs
+
+PATH=$PATH:$HOME/bin
+
+export PATH
 
 # Define useful aliases
 alias h=history
