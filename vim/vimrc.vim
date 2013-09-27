@@ -171,6 +171,7 @@ if has("autocmd")
   autocmd FileType python setlocal shiftwidth=4 softtabstop=4
   autocmd FileType verilog setlocal shiftwidth=3 softtabstop=3
   autocmd FileType verilog_systemverilog setlocal shiftwidth=3 softtabstop=3
+  autocmd FileType cpp setlocal shiftwidth=3 softtabstop=3
   set autoindent     " always set autoindenting on
   set expandtab      " use spaces instead of tabs
 
