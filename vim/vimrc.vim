@@ -208,17 +208,21 @@ noremap <C-LeftDrag> <LeftDrag>
 
 " ------- Add Windows-like behavior  -------
 source $VIMRUNTIME/mswin.vim
-" Use C-Tab and C-S-Tab to cycle through buffers
-" :nnoremap <C-Tab> :bnext<CR>
-" :nnoremap <S-C-Tab> :bprevious<CR>
-"
 " NOTE: Changed to use tabs. See http://vim.wikia.com/wiki/Using_tab_pages
+"         New buffers (from command-line or with :e) open in a tab
+"         Use C-Tab and C-S-Tab to cycle through buffers
+"         If file opens in a split-window instead of tab, press "Ctrl-w T";
+"         also can press <F8> to split all open buffers out to tabs (and back)
+"
+let notabs = 0
 set tabpagemax=99
 set switchbuf=usetab,newtab
 :nnoremap <C-Tab> :sbnext<CR>
 :nnoremap <S-C-Tab> :sbprevious<CR>
-let notabs = 0
 nnoremap <silent> <F8> :let notabs=!notabs<Bar>:if notabs<Bar>:tabo<Bar>:else<Bar>:tab ball<Bar>:tabn<Bar>:endif<CR>
+if has("autocmd")
+  au BufAdd,BufNewFile,BufRead * nested tab sball
+endif
 
 " Tab headings
 function GuiTabLabel()
