@@ -66,6 +66,7 @@ set undolevels=100     " lots of undo
 set history=200        " keep 200 lines of command line history
 set ruler              " show the cursor position all the time
 set showcmd            " display incomplete commands
+"set nofoldenable       " don't allow code-folding
 set diffopt+=iwhite    " ignore whitespace in diff mode
 if !has("unix") && has("gui_running")
   " For Windows only, keep swap files on local drive to avoid "Delayed Write Failed" errors
@@ -296,6 +297,18 @@ if has("autocmd")
   autocmd FileType verilog_systemverilog setlocal shiftwidth=3 softtabstop=3
   autocmd FileType cpp setlocal shiftwidth=3 softtabstop=3
 
+  " Function to strip trailing whitespace and then return cursor to former
+  " position
+  fun! <SID>StripTrailingWhitespaces()
+    let l = line(".")
+    let c = col(".")
+    %s/\s\+$//e
+    call cursor(l, c)
+  endfun
+
+  " Automatically strip trailing white space on save
+  autocmd FileType c,cpp,java,php,ruby,python,verilog,systemverilog autocmd BufWritePre <buffer> :call <SID>StripTrailingWhitespaces()
+
   augroup END
 
 endif " has("autocmd")
@@ -358,7 +371,7 @@ set guitablabel=%!GuiTabLabel()
 :nmap ,l :set list!<CR>
 
 " Remove trailing spaces. ALSO - look at :retab to change tabs to spaces
-:nmap _$ :% s_\s\+$__g <CR>
+:nmap _$ :call <SID>StripTrailingWhitespaces()<CR>
 :vmap _$ :  s_\s\+$__g <CR>
 
 :nmap ,r :set textwidth=78 <CR> gqap  " re-flow text to 78 columns
@@ -436,5 +449,11 @@ map <F2> :set cursorline! cursorcolumn!<CR>
 "  "    see: http://vimdoc.sourceforge.net/htmldoc/filetype.html#new-filetype
 "  au BufRead,BufNewFile *_vhd.ejava	setfiletype vhdl
 "  au BufRead,BufNewFile *_v.ejava	setfiletype verilog
+"
+"  " Remove trailing spaces. ALSO - look at :retab to change tabs to spaces
+"  :nmap _$ :% s_\s\+$__g <CR>
+"  :vmap _$ :  s_\s\+$__g <CR>
+"
 "}}}
+
 
