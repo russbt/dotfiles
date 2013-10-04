@@ -181,7 +181,7 @@ noremap .? :SearchBuffers
 
 " Function to call SearchReset, if MultipleSearch has been installed
 function SafeSearchReset()
-  if (exists(':Search'))
+  if (exists(':SearchReset'))
     SearchReset
   endif
 endfunction
@@ -329,6 +329,11 @@ set switchbuf=usetab,newtab          " New buffers open in a tab
 nnoremap <silent> <F8> :let notabs=!notabs<Bar>:if notabs<Bar>:tabo<Bar>:else<Bar>:tab ball<Bar>:tabn<Bar>:endif<CR>
      " F8 switches between buffers in tabs or not (good for fixing when tabs
      " get messed up)
+     "
+" Disable the built-in "tabe" command, since it doesn't play nice with the
+" auto-tab stuff below
+:cabbrev tabe <c-r>=(getcmdtype()==':' && getcmdpos()==1 ? 'e' : 'tabe')<CR>
+
 if has("autocmd")
   " All newly opened or created buffers open in a tab
   au BufAdd,BufNewFile,BufRead * nested tab sball
