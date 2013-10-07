@@ -10,6 +10,9 @@ if [ "$RUSS_INTERACTIVE" = "TRUE" ]; then
   # Source the Forte Tools:
   #. /apps/scripts/forte.sh > /dev/null
 
+  # Source the SystemC configuration:
+  . /apps/scripts/systemc.sh > /dev/null
+
   # Source the Xilinx Tools:
   . /apps/scripts/xilinx.sh > /dev/null
 
