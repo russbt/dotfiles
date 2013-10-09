@@ -16,7 +16,10 @@ if [ "$RUSS_INTERACTIVE" = "TRUE" ]; then
   # Source the Xilinx Tools:
   . /apps/scripts/xilinx.sh > /dev/null
 
-  # Coverage setup
+  # Misc useful tools
+  . /apps/scripts/others.sh > /dev/null
+
+  # SysC coverage setup
   #. /apps/scripts/jeda_1_3_3.sh > /dev/null
 
   # Mentor Questa setup

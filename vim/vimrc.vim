@@ -306,8 +306,8 @@ if has("autocmd")
     call cursor(l, c)
   endfun
 
-  " Automatically strip trailing white space on save
-  autocmd FileType c,cpp,java,php,ruby,python,verilog,systemverilog autocmd BufWritePre <buffer> :call <SID>StripTrailingWhitespaces()
+"  " Automatically strip trailing white space on save
+"  autocmd FileType c,cpp,java,php,ruby,python,verilog,systemverilog autocmd BufWritePre <buffer> :call <SID>StripTrailingWhitespaces()
 
   augroup END
 
