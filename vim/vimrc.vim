@@ -67,10 +67,15 @@ set history=200        " keep 200 lines of command line history
 set ruler              " show the cursor position all the time
 set showcmd            " display incomplete commands
 "set nofoldenable       " don't allow code-folding
+let strip_trailing_on_save=0 " enable/disable stripping of trailing whitespace on save
 set diffopt+=iwhite    " ignore whitespace in diff mode
 if !has("unix") && has("gui_running")
   " For Windows only, keep swap files on local drive to avoid "Delayed Write Failed" errors
   set dir=c:\\temp
+endif
+if has("autocmd")
+  " Remove existing autocmds when .vimrc is re-sourced
+  :autocmd!
 endif
 "}}}
 
@@ -176,8 +181,8 @@ set hlsearch
 
 " Multi-search (multiple colors for consecutive searches)
 let g:MultipleSearchMaxColors = 4
-noremap ./ :Search 
-noremap .? :SearchBuffers 
+noremap ./ :Search
+noremap .? :SearchBuffers
 
 " Function to call SearchReset, if MultipleSearch has been installed
 function SafeSearchReset()
@@ -262,8 +267,14 @@ noremap <C-LeftDrag> <LeftDrag>
 " Enable highlighting of tabs and end-spaces by default - spacehi.vim
 " Toggle highlighting of special characters with <F3>
 if has("autocmd")
+  " Put these in an autocmd group, so that we can delete them easily.
+  augroup vimrcExSpaceHi
+  " and delete existing autocmds in this group (in case vimrc is re-sourced)
+  au!
+
   autocmd BufNewFile,BufReadPost,FilterReadPost,FileReadPost,Syntax * SpaceHi
   au FileType help NoSpaceHi
+  augroup END
 endif
 "}}}
 
@@ -277,6 +288,7 @@ if has("autocmd")
 
   " Put these in an autocmd group, so that we can delete them easily.
   augroup vimrcEx
+  " and delete existing autocmds in this group (in case vimrc is re-sourced)
   au!
 
   " For all text files set 'textwidth' to 78 characters.
@@ -306,9 +318,10 @@ if has("autocmd")
     call cursor(l, c)
   endfun
 
-"  " Automatically strip trailing white space on save
-"  autocmd FileType c,cpp,java,php,ruby,python,verilog,systemverilog autocmd BufWritePre <buffer> :call <SID>StripTrailingWhitespaces()
-
+  " Automatically strip trailing white space on save
+  if (strip_trailing_on_save==1)
+    autocmd FileType c,cpp,java,php,ruby,python,verilog,systemverilog autocmd BufWritePre <buffer> :call <SID>StripTrailingWhitespaces()
+  endif
   augroup END
 
 endif " has("autocmd")
@@ -321,50 +334,57 @@ endif " has("autocmd")
 "         If file opens in a split-window instead of tab, press "Ctrl-w T";
 "         also can press <F8> to split all open buffers out to tabs (and back)
 "
-let notabs = 0                       " Start with tabs enabled
-set tabpagemax=99                    " Effectively no max number of tabs
-set switchbuf=usetab,newtab          " New buffers open in a tab
-:nnoremap <C-Tab> :sbnext<CR>        " Ctrl-Tab switches to the next tab
-:nnoremap <S-C-Tab> :sbprevious<CR>  " Ctrl-Shift-Tab switches to previous tab
-nnoremap <silent> <F8> :let notabs=!notabs<Bar>:if notabs<Bar>:tabo<Bar>:else<Bar>:tab ball<Bar>:tabn<Bar>:endif<CR>
-     " F8 switches between buffers in tabs or not (good for fixing when tabs
-     " get messed up)
-     "
-" Disable the built-in "tabe" command, since it doesn't play nice with the
-" auto-tab stuff below
-:cabbrev tabe <c-r>=(getcmdtype()==':' && getcmdpos()==1 ? 'e' : 'tabe')<CR>
+if has("gui")
+    let notabs = 0                       " Start with tabs enabled
+    set tabpagemax=99                    " Effectively no max number of tabs
+    set switchbuf=usetab,newtab          " New buffers open in a tab
+    :nnoremap <C-Tab> ::sbnext<CR>        " Ctrl-Tab switches to the next tab
+    :nnoremap <S-C-Tab> :sbprevious<CR>  " Ctrl-Shift-Tab switches to previous tab
+    nnoremap <silent> <F8> :let notabs=!notabs<Bar>:if notabs<Bar>:tabo<Bar>:else<Bar>:tab ball<Bar>:tabn<Bar>:endif<CR>
+         " F8 switches between buffers in tabs or not (good for fixing when tabs
+         " get messed up)
+         "
+    " Disable the built-in "tabe" command, since it doesn't play nice with the
+    " auto-tab stuff below
+    :cabbrev tabe <c-r>=(getcmdtype()==':' && getcmdpos()==1 ? 'e' : 'tabe')<CR>
 
-if has("autocmd")
-  " All newly opened or created buffers open in a tab
-  au BufAdd,BufNewFile,BufRead * nested tab sball
-endif
+    if has("autocmd")
+      " Put these in an autocmd group, so that we can delete them easily.
+      augroup vimrcEx
+      " and delete existing autocmds in this group (in case vimrc is re-sourced)
+      au!
+      " All newly opened or created buffers open in a tab
+      au BufAdd,BufNewFile,VimEnter * nested tab sball
+      augroup END
+    endif
 
-" Tab headings (labels)
-function GuiTabLabel()
-    let label = ''
-    let bufnrlist = tabpagebuflist(v:lnum)
+    " Tab headings (labels)
+    function GuiTabLabel()
+        let label = ''
+        let bufnrlist = tabpagebuflist(v:lnum)
 
-    " Add '+' if one of the buffers in the tab page is modified
-    for bufnr in bufnrlist
-        if getbufvar(bufnr, "&modified")
-            let label = '+'
-            break
+        " Add '+' if one of the buffers in the tab page is modified
+        for bufnr in bufnrlist
+            if getbufvar(bufnr, "&modified")
+                let label = '+'
+                break
+            endif
+        endfor
+
+        " Append the number of windows in the tab page if more than one
+        let wincount = tabpagewinnr(v:lnum, '$')
+        if wincount > 1
+            let label .= wincount
         endif
-    endfor
+        if label != ''
+            let label .= ' '
+        endif
 
-    " Append the number of windows in the tab page if more than one
-    let wincount = tabpagewinnr(v:lnum, '$')
-    if wincount > 1
-        let label .= wincount
-    endif
-    if label != ''
-        let label .= ' '
-    endif
-
-    " Append the buffer name (not full path)
-    return label . "%t"
-endfunction
-set guitablabel=%!GuiTabLabel()
+        " Append the buffer name (not full path)
+        return label . "%t"
+    endfunction
+    set guitablabel=%!GuiTabLabel()
+endif
 "}}}
 
 " ------- Misc key-bindings ------- {{{
