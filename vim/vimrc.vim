@@ -287,7 +287,7 @@ if has("autocmd")
   filetype plugin indent on
 
   " Put these in an autocmd group, so that we can delete them easily.
-  augroup vimrcEx
+  augroup vimrcExFT
   " and delete existing autocmds in this group (in case vimrc is re-sourced)
   au!
 
@@ -350,7 +350,7 @@ if has("gui")
 
     if has("autocmd")
       " Put these in an autocmd group, so that we can delete them easily.
-      augroup vimrcEx
+      augroup vimrcExWinTab
       " and delete existing autocmds in this group (in case vimrc is re-sourced)
       au!
       " All newly opened or created buffers open in a tab
