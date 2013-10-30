@@ -12,4 +12,14 @@ if [ "$RUSS_INTERACTIVE" = "TRUE" ]; then
 fi
 
 alias gvim='/Applications/MacVim.app/Contents/MacOS/Vim -g'
+alias airport='/System/Library/PrivateFrameworks/Apple80211.framework/Versions/Current/Resources/airport'
+
+# Other useful commands:
+# >  caffeinate  [keep system from sleeping]
+# >  sudo killall -HUP mDNSResponder  [flush DNS cache]
+# >  lsof -i | grep ESTABLISHED|less   [list open network connections]
+# >  networksetup -getdnsservers ethernet  [query network settings]
+# >  open   [cause Finder to launch document/directory/program]
+# >  opendiff   [graphical diff]
+# >  qlmanage   [manage QuickLook settings or show preview of doc]
 
