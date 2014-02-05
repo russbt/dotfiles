@@ -305,8 +305,8 @@ if has("autocmd")
   " set up indentation on a per-file-type basis
   " See: http://vim.wikia.com/wiki/Indenting_source_code
   autocmd FileType python setlocal shiftwidth=4 softtabstop=4
-  autocmd FileType verilog setlocal shiftwidth=3 softtabstop=3
-  autocmd FileType verilog_systemverilog setlocal shiftwidth=3 softtabstop=3
+  autocmd FileType verilog setlocal shiftwidth=2 softtabstop=2
+  autocmd FileType verilog_systemverilog setlocal shiftwidth=2 softtabstop=2
   autocmd FileType cpp setlocal shiftwidth=3 softtabstop=3
 
   " Function to strip trailing whitespace and then return cursor to former
@@ -320,7 +320,7 @@ if has("autocmd")
 
   " Automatically strip trailing white space on save
   if (strip_trailing_on_save==1)
-    autocmd FileType c,cpp,java,php,ruby,python,verilog,systemverilog autocmd BufWritePre <buffer> :call <SID>StripTrailingWhitespaces()
+    autocmd FileType c,cpp,java,php,ruby,python,verilog,verilog_systemverilog autocmd BufWritePre <buffer> :call <SID>StripTrailingWhitespaces()
   endif
   augroup END
 
