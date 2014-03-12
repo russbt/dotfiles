@@ -14,6 +14,14 @@ fi
 alias gvim='/Applications/MacVim.app/Contents/MacOS/Vim -g'
 alias airport='/System/Library/PrivateFrameworks/Apple80211.framework/Versions/Current/Resources/airport'
 
+# Add local directories to path, if available (PATH will be exported in top-level bashrc)
+if [ -d /opt/subversion/bin ]; then
+      PATH=/opt/subversion/bin:$PATH
+fi
+if [ -d /usr/local/git/bin ]; then
+      PATH=/usr/local/git/bin:$PATH
+fi
+
 # Other useful commands:
 # >  caffeinate  [keep system from sleeping]
 # >  sudo killall -HUP mDNSResponder  [flush DNS cache]
