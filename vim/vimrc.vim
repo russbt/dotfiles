@@ -338,8 +338,10 @@ if has("gui")
     let notabs = 0                       " Start with tabs enabled
     set tabpagemax=99                    " Effectively no max number of tabs
     set switchbuf=usetab,newtab          " New buffers open in a tab
-    :nnoremap <C-Tab> ::sbnext<CR>        " Ctrl-Tab switches to the next tab
-    :nnoremap <S-C-Tab> :sbprevious<CR>  " Ctrl-Shift-Tab switches to previous tab
+    " Ctrl-Tab switches to the next tab
+    :nnoremap <C-Tab> :sbnext<CR>
+    " Ctrl-Shift-Tab switches to previous tab
+    :nnoremap <S-C-Tab> :sbprevious<CR>
     nnoremap <silent> <F8> :let notabs=!notabs<Bar>:if notabs<Bar>:tabo<Bar>:else<Bar>:tab ball<Bar>:tabn<Bar>:endif<CR>
          " F8 switches between buffers in tabs or not (good for fixing when tabs
          " get messed up)
