@@ -13,6 +13,7 @@ fi
 
 alias gvim='/Applications/MacVim.app/Contents/MacOS/Vim -g'
 alias airport='/System/Library/PrivateFrameworks/Apple80211.framework/Versions/Current/Resources/airport'
+alias airplayreset='sudo pkill coreaudiod'
 
 # Add local directories to path, if available (PATH will be exported in top-level bashrc)
 if [ -d /opt/subversion/bin ]; then
