@@ -1,9 +1,9 @@
 #!/bin/sh
 cd ~
-mv .bashrc .bashrc.off
-mv .bash_profile .bash_profile.off
-mv .vim .vim.off
-mv .vimrc .vimrc.off
+mv -f .bashrc .bashrc.off
+mv -f .bash_profile .bash_profile.off
+mv -f .vim .vim.off
+mv -f .vimrc .vimrc.off
 
 ln -s dotfiles/bash/bashrc .bashrc
 ln -s dotfiles/bash/bash_profile .bash_profile

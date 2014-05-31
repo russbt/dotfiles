@@ -1,7 +1,14 @@
 Initial setup on new machine:
   cd ~
-  git clone https://github.com/russbt/dotfiles.git
+  git clone git remote set-url origin ssh://git@github.com:russbt/dotfiles.git #https://git@github.com/russbt/dotfiles.git
   # link stuff into dotfiles directory (vim, bash)
+  ./dotfiles/install.sh
+
+Authorize computer to push changes
+  #Generate an SSH key: https://help.github.com/articles/generating-ssh-keys
+  # Check ssh key setup:
+  ssh -T git@ssh.github.com
+  git remote set-url origin ssh://git@github.com:russbt/dotfiles.git
 
 Change/add a file:
   git status
