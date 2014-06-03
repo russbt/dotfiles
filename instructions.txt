@@ -3,6 +3,12 @@
   # Check ssh key setup:
   ssh -T git@ssh.github.com
 
+(Optional) Switch from https method to SSH method
+  # from: https://help.github.com/articles/changing-a-remote-s-url
+  git remote -v   # view existing setup
+  git remote set-url origin git@github.com:russbt/dotfiles.git
+  git remote -v   # verify new setup
+
 Initial setup on new machine:
   cd ~
   git clone ssh://git@github.com:russbt/dotfiles.git   # If you will be pushing changes back

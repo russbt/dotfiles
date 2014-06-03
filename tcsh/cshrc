@@ -1,0 +1,20 @@
+# permit over-write of files
+unset noclobber
+
+# set depth of command history
+setenv savehist "1000 merge lock"
+setenv histfile "~/.history"
+
+# set a useful prompt
+set prompt="%m %c %h> "
+
+# bind ctrl-<arrow> keys in useful ways
+bindkey '^[[5A' history-search-backward
+bindkey '^[[5B' history-search-forward
+bindkey '^[[5D' backward-word
+bindkey '^[[5C' forward-word
+bindkey '^[[1;5A' history-search-backward
+bindkey '^[[1;5B' history-search-forward
+bindkey '^[[1;5D' backward-word
+bindkey '^[[1;5C' forward-word
+

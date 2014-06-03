@@ -239,7 +239,7 @@ endif
 
 " Set window height to 45 lines of text
 if has("gui_running")
-  :set lines=45 columns=120
+  :set lines=40 columns=120
 endif
 
 " Turn on syntax highlighting if more than 2 colors available
@@ -305,8 +305,8 @@ if has("autocmd")
   " set up indentation on a per-file-type basis
   " See: http://vim.wikia.com/wiki/Indenting_source_code
   autocmd FileType python setlocal shiftwidth=4 softtabstop=4
-  autocmd FileType verilog setlocal shiftwidth=2 softtabstop=2
-  autocmd FileType verilog_systemverilog setlocal shiftwidth=2 softtabstop=2
+  autocmd FileType verilog setlocal shiftwidth=3 softtabstop=3
+  autocmd FileType verilog_systemverilog setlocal shiftwidth=3 softtabstop=3
   autocmd FileType cpp setlocal shiftwidth=3 softtabstop=3
 
   " Function to strip trailing whitespace and then return cursor to former
