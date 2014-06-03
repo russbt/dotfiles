@@ -2,6 +2,9 @@
   #Generate an SSH key: https://help.github.com/articles/generating-ssh-keys
   # Check ssh key setup:
   ssh -T git@ssh.github.com
+  # Set username/email to be semi-anonymous - LOCAL to this repository
+  git config user.name "Russ"
+  git config user.email "russ@work"
 
 (Optional) Switch from https method to SSH method
   # from: https://help.github.com/articles/changing-a-remote-s-url
