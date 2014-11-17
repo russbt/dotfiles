@@ -8,6 +8,14 @@ setenv histfile "~/.history"
 # set a useful prompt
 set prompt="%m %c %h> "
 
+# set up access to local installs
+if ( -d $HOME/local/lib ) then
+  setenv LD_LIBRARY_PATH "${LD_LIBRARY_PATH}:${HOME}/local/lib"
+endif
+if ( -d $HOME/local/bin ) then
+  setenv PATH "${PATH}:${HOME}/local/bin"
+endif
+
 # bind ctrl-<arrow> keys in useful ways
 bindkey '^[[5A' history-search-backward
 bindkey '^[[5B' history-search-forward
@@ -17,4 +25,7 @@ bindkey '^[[1;5A' history-search-backward
 bindkey '^[[1;5B' history-search-forward
 bindkey '^[[1;5D' backward-word
 bindkey '^[[1;5C' forward-word
+
+# load history
+history -L
 

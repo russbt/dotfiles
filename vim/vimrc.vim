@@ -35,6 +35,7 @@
 "   --Editing--
 "     <Ctrl>-X/C/V/Z/R       : Cut/Copy/Paste/Undo/Redo
 "     <Ctrl>-Q               : Enter "visual" mode (since Ctrl-Z is now Undo)
+"     <F7>                   : Make a commented-out copy of the current line
 "   --Search/Replace--
 "     ./                     : Multi-search
 "     ./                     : Multi-search in all buffers
@@ -402,6 +403,19 @@ endif
 :vmap _$ :  s_\s\+$__g <CR>
 
 :nmap ,r :set textwidth=78 <CR> gqap  " re-flow text to 78 columns
+
+" Make F7 duplicate the current line, with a // comment at the beginning
+" TODO: make the comment-charater be filetype-specific
+fun! <SID>DuplicateCommentedLine()
+  let l = line(".")
+  let c = col(".")
+  normal yyp
+  call cursor(l, 0)
+  normal I//
+  call cursor(l+1, c)
+endfun
+nmap <F7> :call <SID>DuplicateCommentedLine()<CR>
+imap <F7> <ESC>:call <SID>DuplicateCommentedLine()<CR>li
 
 " Make F4 toggle NERDTree
 " see: http://www.vim.org/scripts/script.php?script_id=1658
