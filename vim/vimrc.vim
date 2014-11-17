@@ -1,5 +1,5 @@
 " Russ' VIM setup script
-" Last update: 10/1/13
+" Last update: 11/17/14
 "
 " Notable choices:
 "   Never use tabs (always use spaces instead)
@@ -430,6 +430,16 @@ map <F2> :set cursorline! cursorcolumn!<CR>
 " http://mysite.verizon.net/astronaut/vim/align.html
 :nmap ,aa :AlignCtrl =lp1P0|
 "}}}
+
+" ------- Compatibility ------- {{{
+" Handle arrow-key mapping within tmux
+if &term =~ '^screen'
+    " tmux will send xterm-style keys when its xterm-keys option is on
+    execute "set <xUp>=\e[1;*A"
+    execute "set <xDown>=\e[1;*B"
+    execute "set <xRight>=\e[1;*C"
+    execute "set <xLeft>=\e[1;*D"
+endif
 
 " ---------------------------------------------------------------------
 "      Disabled code, for reference {{{
