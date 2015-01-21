@@ -19,6 +19,8 @@ Initial setup on new machine:
   git clone https://git@github.com/russbt/dotfiles.git # If this will be read-only
   # link stuff into dotfiles directory (vim, bash)
   ./dotfiles/install.sh
+  # -- OR --
+  .\dotfiles\install.bat
 
 Change/add a file:
   git status
