@@ -16,7 +16,7 @@ Initial setup on new machine:
   cd ~
   git clone ssh://git@github.com:russbt/dotfiles.git   # If you will be pushing changes back
   # -- OR --
-  git clone https://git@github.com/russbt/dotfiles.git # If this will be read-only
+  git clone https://russbt@github.com/russbt/dotfiles.git # If this will be read-only
   # link stuff into dotfiles directory (vim, bash)
   ./dotfiles/install.sh
   # -- OR --
