@@ -10,10 +10,10 @@ set prompt="%m %c %h> "
 
 # set up access to local installs
 if ( -d $HOME/local/lib ) then
-  setenv LD_LIBRARY_PATH "${LD_LIBRARY_PATH}:${HOME}/local/lib"
+  setenv LD_LIBRARY_PATH "${HOME}/local/lib:${LD_LIBRARY_PATH}"
 endif
 if ( -d $HOME/local/bin ) then
-  setenv PATH "${PATH}:${HOME}/local/bin"
+  setenv PATH "${HOME}/local/bin:${PATH}"
 endif
 
 # bind ctrl-<arrow> keys in useful ways

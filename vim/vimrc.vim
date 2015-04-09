@@ -63,7 +63,7 @@
 "
 set nocompatible       " Enable VIM features that aren't in VI
 set hidden             " Allow switching between files without having to save first
-set undolevels=100     " lots of undo
+set undolevels=1000    " lots of undo
 set history=200        " keep 200 lines of command line history
 set ruler              " show the cursor position all the time
 set showcmd            " display incomplete commands
