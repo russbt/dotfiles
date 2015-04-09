@@ -73,6 +73,7 @@ set diffopt+=iwhite    " ignore whitespace in diff mode
 if !has("unix") && has("gui_running")
   " For Windows only, keep swap files on local drive to avoid "Delayed Write Failed" errors
   set dir=c:\\temp
+  set dir+=$TEMP
 endif
 if has("autocmd")
   " Remove existing autocmds when .vimrc is re-sourced
