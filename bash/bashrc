@@ -25,8 +25,10 @@ fi
 # User specific environment and startup programs
 
 PATH=$PATH:$HOME/bin
-
 export PATH
+
+# get Verdi to load my custom configurations
+export NOVAS_AUTO_SOURCE=${HOME}/dotfiles/verdi_startup.tcl
 
 # Define useful aliases
 alias h=history

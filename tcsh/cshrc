@@ -29,3 +29,6 @@ bindkey '^[[1;5C' forward-word
 # load history
 history -L
 
+# get Verdi to load my custom configurations
+setenv NOVAS_AUTO_SOURCE "${HOME}/dotfiles/verdi_startup.tcl"
+
