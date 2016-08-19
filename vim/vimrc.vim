@@ -141,7 +141,7 @@ function! AdjustFontSize(amount)
     endif
 
     let s:minfontsize = 6
-    let s:maxfontsize = 16
+    let s:maxfontsize = 24
     let leading = substitute(&guifont, s:pattern, '\1', '')
     let cursize = substitute(&guifont, s:pattern, '\2', '')
     let trailing = substitute(&guifont, s:pattern, '\3', '')
@@ -149,6 +149,9 @@ function! AdjustFontSize(amount)
     if (newsize >= s:minfontsize) && (newsize <= s:maxfontsize)
       let newfont = leading . newsize . trailing
       let &guifont = newfont
+      " Note: need the redraw first, so a postponed-redraw doesn't clear the
+      " output of echo
+      redraw | echom "New font size: " . newsize
     endif
   endif
   "echoerr "You need to run the GTK2 version of Vim to use this function."
@@ -307,9 +310,10 @@ if has("autocmd")
   " set up indentation on a per-file-type basis
   " See: http://vim.wikia.com/wiki/Indenting_source_code
   autocmd FileType python setlocal shiftwidth=4 softtabstop=4
-  autocmd FileType verilog setlocal shiftwidth=3 softtabstop=3
-  autocmd FileType verilog_systemverilog setlocal shiftwidth=3 softtabstop=3
-  autocmd FileType cpp setlocal shiftwidth=3 softtabstop=3
+  autocmd FileType verilog setlocal shiftwidth=4 softtabstop=4
+  autocmd FileType verilog_systemverilog setlocal shiftwidth=4 softtabstop=4
+  autocmd FileType cpp setlocal shiftwidth=2 softtabstop=2
+  autocmd FileType c setlocal shiftwidth=2 softtabstop=2
 
   " Function to strip trailing whitespace and then return cursor to former
   " position
