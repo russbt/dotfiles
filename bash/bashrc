@@ -1,6 +1,10 @@
 # Save the base part of the hostname. Used to run host-specific scripts
 export HOSTNAME_TRIMMED=`hostname | cut -f1 -d'.'`
 
+# Set useful variables
+set sq="'"
+set dq='"'
+
 # Determine whether this is an interactive shell. If not, we skip a lot of setup
 case $- in
     *i*)    export RUSS_INTERACTIVE=TRUE
@@ -21,6 +25,11 @@ fi
 if [ -f ~/dotfiles/bash/host/$HOSTNAME_TRIMMED.sh ]; then
   source ~/dotfiles/bash/host/$HOSTNAME_TRIMMED.sh
 fi
+
+# Function to ping with a datestamp
+function dateping() {
+  ping $1 | perl -nle 'print scalar(localtime), " ", $_'
+}
 
 # User specific environment and startup programs
 
