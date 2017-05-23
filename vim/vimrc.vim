@@ -120,7 +120,7 @@ if has("gui_running")
     set guifont=Monospace\ 12
   elseif has("gui_macvim")
     " MacVim (OS X)
-    set guifont=Consolas:h14
+    set guifont=Consolas:h18
   elseif has("X11")
     " Some other unix-y flavor
     set guifont=-adobe-courier-medium-r-normal-*-*-140-*-*-m-*-iso10646-1
@@ -270,6 +270,7 @@ noremap <C-LeftDrag> <LeftDrag>
 :set scrolloff=3
 
 " Enable highlighting of tabs and end-spaces by default - spacehi.vim
+"   (Temorarily? disabled by commenting-out the autocommand line - RCN 2016/12/5
 " Toggle highlighting of special characters with <F3>
 if has("autocmd")
   " Put these in an autocmd group, so that we can delete them easily.
@@ -277,7 +278,7 @@ if has("autocmd")
   " and delete existing autocmds in this group (in case vimrc is re-sourced)
   au!
 
-  autocmd BufNewFile,BufReadPost,FilterReadPost,FileReadPost,Syntax * SpaceHi
+"  autocmd BufNewFile,BufReadPost,FilterReadPost,FileReadPost,Syntax * SpaceHi
   au FileType help NoSpaceHi
   augroup END
 endif
@@ -434,7 +435,7 @@ map <F2> :set cursorline! cursorcolumn!<CR>
 " Enter settings for Align plugin: see http://www.vim.org/scripts/script.php?script_id=294 and
 " http://mysite.verizon.net/astronaut/vim/align.html
 :nmap ,aa :AlignCtrl =lp1P0|
-"}}}
+ "}}}
 
 " ------- Compatibility ------- {{{
 " Handle arrow-key mapping within tmux
@@ -445,6 +446,49 @@ if &term =~ '^screen'
     execute "set <xRight>=\e[1;*C"
     execute "set <xLeft>=\e[1;*D"
 endif
+" }}}
+
+" ------- Random utilities ------- {{{
+
+" Convert between Hex & Decimal
+" From: http://vim.wikia.com/wiki/Convert_between_hex_and_decimal
+" 
+command! -nargs=? -range Dec2hex call s:Dec2hex(<line1>, <line2>, '<args>')
+function! s:Dec2hex(line1, line2, arg) range
+  if empty(a:arg)
+    if histget(':', -1) =~# "^'<,'>" && visualmode() !=# 'V'
+      let cmd = 's/\%V\<\d\+\>/\=printf("0x%x",submatch(0)+0)/g'
+    else
+      let cmd = 's/\<\d\+\>/\=printf("0x%x",submatch(0)+0)/g'
+    endif
+    try
+      execute a:line1 . ',' . a:line2 . cmd
+    catch
+      echo 'Error: No decimal number found'
+    endtry
+  else
+    echo printf('%x', a:arg + 0)
+  endif
+endfunction
+
+command! -nargs=? -range Hex2dec call s:Hex2dec(<line1>, <line2>, '<args>')
+function! s:Hex2dec(line1, line2, arg) range
+  if empty(a:arg)
+    if histget(':', -1) =~# "^'<,'>" && visualmode() !=# 'V'
+      let cmd = 's/\%V0x\x\+/\=submatch(0)+0/g'
+    else
+      let cmd = 's/0x\x\+/\=submatch(0)+0/g'
+    endif
+    try
+      execute a:line1 . ',' . a:line2 . cmd
+    catch
+      echo 'Error: No hex number starting "0x" found'
+    endtry
+  else
+    echo (a:arg =~? '^0x') ? a:arg + 0 : ('0x'.a:arg) + 0
+  endif
+endfunction
+" }}}
 
 " ---------------------------------------------------------------------
 "      Disabled code, for reference {{{

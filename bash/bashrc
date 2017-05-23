@@ -28,7 +28,7 @@ fi
 
 # Function to ping with a datestamp
 function dateping() {
-  ping $1 | perl -nle 'print scalar(localtime), " ", $_'
+  ping $1 $2 $3 $4 $5 | perl -nle 'print scalar(localtime), " ", $_'
 }
 
 # User specific environment and startup programs
