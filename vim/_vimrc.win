@@ -4,3 +4,4 @@ let &rtp='~\dotfiles\vim,'.&rtp
 " Source the 'dotfiles" vimrc
 source ~\dotfiles\vim\vimrc.vim
 
+
