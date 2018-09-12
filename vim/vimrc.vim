@@ -54,6 +54,7 @@
 "     <Ctrl>-<LeftMouse>     : Rectangle-select
 "     ,l                     : Toggle showing invisibles (in "normal") mode
 "     <F2>                   : Toggle row/column crosshairs
+"     ,t                     : Toggle "tail -F" mode
 "
 " Other useful commands:
 "   :Align                   : Align parts of lines to the same column
@@ -409,6 +410,18 @@ endif
 :vmap _$ :  s_\s\+$__g <CR>
 
 :nmap ,r :set textwidth=78 <CR> gqap  " re-flow text to 78 columns
+
+" Toggle 'tail' mode for current buffer
+function! <SID>TailToggle()
+  if exists('b:tail_timer_id')
+    call tail#stop_tail()
+    TabooReset
+  else
+    call tail#start_tail()
+    TabooRename %f (F)
+  endif
+endfunction
+:nmap ,t :call <SID>TailToggle()<CR>
 
 " Make F7 duplicate the current line, with a // comment at the beginning
 " TODO: make the comment-charater be filetype-specific
