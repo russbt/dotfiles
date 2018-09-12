@@ -51,6 +51,7 @@
 "     <Ctrl>-<Alt>-<Right>   : Expand current fold
 "     <Ctrl>-<Alt>-<Up>      : Collapse all folds
 "     <Ctrl>-<Alt>-<Down>    : Collapse all folds
+"     <Ctrl>-<Space>         : Toggle fold
 "     <Ctrl>-<LeftMouse>     : Rectangle-select
 "     ,l                     : Toggle showing invisibles (in "normal") mode
 "     <F2>                   : Toggle row/column crosshairs
@@ -83,8 +84,8 @@ endif
 "}}}
 
 " ------- Indenting/tabs ------- {{{
-set shiftwidth=4   " default to 4 spaces
-set softtabstop=4  " default to 4 spaces
+set shiftwidth=2   " default to 2 spaces
+set softtabstop=2  " default to 2 spaces
 set autoindent     " always set autoindenting on
 set expandtab      " use spaces instead of tabs (can be overridden per-file-type)
 "}}}
@@ -227,6 +228,10 @@ if has("folding")
   "use markers (curly-braces) instead of side-band
   set foldmethod=marker
 
+  " toggle fold with ctrl-space
+  nmap <C-Space> za
+  inoremap <C-Space> za
+
   "open & close folds with ctrl-alt-left/right
   nmap <C-A-Right> zo
   nmap <C-A-Left> zc
@@ -311,9 +316,9 @@ if has("autocmd")
 
   " set up indentation on a per-file-type basis
   " See: http://vim.wikia.com/wiki/Indenting_source_code
-  autocmd FileType python setlocal shiftwidth=4 softtabstop=4
-  autocmd FileType verilog setlocal shiftwidth=4 softtabstop=4
-  autocmd FileType verilog_systemverilog setlocal shiftwidth=4 softtabstop=4
+  autocmd FileType python setlocal shiftwidth=2 softtabstop=2
+  autocmd FileType verilog setlocal shiftwidth=2 softtabstop=2
+  autocmd FileType verilog_systemverilog setlocal shiftwidth=2 softtabstop=2
   autocmd FileType cpp setlocal shiftwidth=2 softtabstop=2
   autocmd FileType c setlocal shiftwidth=2 softtabstop=2
 

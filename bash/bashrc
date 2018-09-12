@@ -11,6 +11,11 @@ case $- in
     ;;
 esac
 
+# Make history more useful
+export HISTCONTROL=erasedups
+export HISTFILESIZE=5000
+export HISTSIZE=5000
+
 # Example of testing for interactive mode
 #if [ "$RUSS_INTERACTIVE" = "TRUE" ]; then
 #  echo "BASHRC"
