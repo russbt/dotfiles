@@ -26,6 +26,11 @@ if [ -f ~/dotfiles/bash/host/$HOSTNAME_TRIMMED.sh ]; then
   source ~/dotfiles/bash/host/$HOSTNAME_TRIMMED.sh
 fi
 
+# Call local (non-git-committed) bashrc
+if [ -f ~/dotfiles/bash/local.sh ]; then
+  source ~/dotfiles/bash/local.sh
+fi
+
 # Function to ping with a datestamp
 function dateping() {
   ping $1 $2 $3 $4 $5 | perl -nle 'print scalar(localtime), " ", $_'

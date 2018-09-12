@@ -22,6 +22,9 @@ fi
 if [ -d /usr/local/git/bin ]; then
       PATH=/usr/local/git/bin:$PATH
 fi
+if [ -d ~/Library/Python/2.7/bin/ ]; then
+      PATH=$PATH:~/Library/Python/2.7/bin/
+fi
 
 # Other useful commands:
 # >  caffeinate  [keep system from sleeping]
