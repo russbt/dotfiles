@@ -1,0 +1,3 @@
+# Don't check in managed plugins - let Vim-Plug handle them
+plugged/*
+
