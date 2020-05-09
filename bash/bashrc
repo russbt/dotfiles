@@ -59,4 +59,5 @@ alias stopvnc='vncserver -kill :22'
 alias g='gvim'
 alias gt='gvim --remote-tab-silent'
 alias filetree="\ls -R | grep ":$" | sed -e 's/:$//' -e 's/[^-][^\/]*\//--/g' -e 's/^/ /' -e 's/-/|/'"
+alias dirs='dirs -v'
 

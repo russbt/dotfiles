@@ -25,6 +25,9 @@ fi
 if [ -d ~/Library/Python/2.7/bin/ ]; then
       PATH=$PATH:~/Library/Python/2.7/bin/
 fi
+if [ -d /Applications/Visual\ Studio\ Code.app/Contents/Resources/app/bin ]; then
+      PATH=$PATH:/Applications/Visual\ Studio\ Code.app/Contents/Resources/app/bin
+fi
 
 # Other useful commands:
 # >  caffeinate  [keep system from sleeping]

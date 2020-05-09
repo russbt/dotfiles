@@ -83,6 +83,24 @@ if has("autocmd")
 endif
 "}}}
 
+" ------- Plugin Manger (Vim-Plug) ------- {{{
+" See: https://github.com/junegunn/vim-plug
+" To install plugins, call :PlugInstall
+" To update plugins, call :PlugUpdate
+" 
+" Specify a directory for plugins
+" - For Neovim: ~/.local/share/nvim/plugged
+" - Avoid using standard Vim directory names like 'plugin'
+call plug#begin('~/.vim/plugged')
+
+" CSV - currently disabled
+"Plug 'chrisbra/csv.vim'
+
+" Initialize plugin system
+call plug#end()
+
+"}}}
+
 " ------- Indenting/tabs ------- {{{
 set shiftwidth=2   " default to 2 spaces
 set softtabstop=2  " default to 2 spaces

@@ -5,3 +5,13 @@ if [ -f ~/dotfiles/bash/bashrc ]; then
         . ~/dotfiles/bash/bashrc
 fi
 
+
+# set PATH so it includes user's private bin if it exists
+if [ -d "$HOME/bin" ] ; then
+    PATH="$HOME/bin:$PATH"
+fi
+
+# Setting PATH for Python 3.8
+# The original version is saved in .bash_profile.pysave
+PATH="/Library/Frameworks/Python.framework/Versions/3.8/bin:${PATH}"
+export PATH
