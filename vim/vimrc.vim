@@ -132,18 +132,20 @@ source $VIMRUNTIME/mswin.vim
 "
 " Use a non-hideous font and make changing font-size on-the-fly easy:
 "    ,=  -> larger, ,-  -> smaller   (On a Mac, you can use cmd-= and cmd--)
+"    This font should be available (free) on anything modern-ish:
+"        https://fonts.google.com/specimen/Inconsolata
 
 " Font selection
 if has("gui_running")
   if has("gui_gtk2")
     " Redhat, etc
-    set guifont=Monospace\ 12
+    set guifont=Consolas\ 12,Inconsolata\ 12,Monospace\ 12
   elseif has("gui_macvim")
     " MacVim (OS X)
-    set guifont=Consolas:h18
+    set guifont=Consolas:h18,Inconsolata:h18
   elseif has("X11")
     " Some other unix-y flavor
-    set guifont=-adobe-courier-medium-r-normal-*-*-140-*-*-m-*-iso10646-1
+    set guifont=Consolas\ 12,Inconsolata\ 12,Monospace\ 12,-adobe-courier-medium-r-normal-*-*-140-*-*-m-*-iso10646-1
   else
     " Windows
     set gfn=Consolas:h12:cDEFAULT
