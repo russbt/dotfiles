@@ -25,6 +25,14 @@ fi
 if [ -d ~/Library/Python/2.7/bin/ ]; then
       PATH=$PATH:~/Library/Python/2.7/bin/
 fi
+
+if [ -d "/Library/Frameworks/Python.framework/Versions/3.8/bin" ] ; then
+    PATH="/Library/Frameworks/Python.framework/Versions/3.8/bin:${PATH}"
+        if [ -d "/Users/russ/Library/Python/3.8/bin" ] ; then
+            PATH="/Users/russ/Library/Python/3.8/bin:${PATH}"
+        fi
+fi
+
 if [ -d /Applications/Visual\ Studio\ Code.app/Contents/Resources/app/bin ]; then
       PATH=$PATH:/Applications/Visual\ Studio\ Code.app/Contents/Resources/app/bin
 fi
