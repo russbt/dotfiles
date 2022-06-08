@@ -1,0 +1,4 @@
+Look at: https://apple.stackexchange.com/questions/106355/setting-the-system-wide-path-environment-variable-in-mavericks/106814#106814
+
+File in: ~/Library/LaunchAgents/my.startup.plist
+

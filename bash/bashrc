@@ -1,5 +1,9 @@
+if [ -d "$HOME/.fig" ] ; then
+  # Fig pre block. Keep at the top of this file.
+  . "$HOME/.fig/shell/bashrc.pre.bash"
+fi
 # Save the base part of the hostname. Used to run host-specific scripts
-export HOSTNAME_TRIMMED=`hostname | cut -f1 -d'.'`
+export HOSTNAME_TRIMMED=`hostname | cut -f1 -d'.' | tr '[:upper:]' '[:lower:]'`
 
 # Set useful variables
 set sq="'"
@@ -46,9 +50,6 @@ function dateping() {
 PATH=$PATH:$HOME/bin
 export PATH
 
-# get Verdi to load my custom configurations
-export NOVAS_AUTO_SOURCE=${HOME}/dotfiles/verdi_startup.tcl
-
 # Define useful aliases
 alias h=history
 alias ls='ls $RUSS_LS_OPTS'
@@ -60,4 +61,9 @@ alias g='gvim'
 alias gt='gvim --remote-tab-silent'
 alias filetree="\ls -R | grep ":$" | sed -e 's/:$//' -e 's/[^-][^\/]*\//--/g' -e 's/^/ /' -e 's/-/|/'"
 alias dirs='dirs -v'
+
+if [ -d "$HOME/.fig" ] ; then
+  # Fig post block. Keep at the bottom of this file.
+  . "$HOME/.fig/shell/bashrc.post.bash"
+fi
 

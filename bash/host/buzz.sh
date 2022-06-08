@@ -12,6 +12,9 @@ fi
 if [ -d /Users/russ/Trango/nordic_sdk/nRF-Command-Line-Tools_latest/nrfjprog ]; then
       PATH=$PATH:/Users/russ/Trango/nordic_sdk/nRF-Command-Line-Tools_latest/nrfjprog
 fi
+if [ -d /Users/russ/Trango/flutter/bin ]; then
+      PATH=$PATH:/Users/russ/Trango/flutter/bin
+fi
 
 # Don't set up tools when in a non-interactive shell, so they can be updated per-window
 #if [ "$RUSS_INTERACTIVE" = "TRUE" ]; then

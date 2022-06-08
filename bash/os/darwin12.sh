@@ -15,6 +15,11 @@ alias gvim='/Applications/MacVim.app/Contents/MacOS/Vim -g'
 alias airport='/System/Library/PrivateFrameworks/Apple80211.framework/Versions/Current/Resources/airport'
 alias airplayreset='sudo pkill coreaudiod'
 
+#PDF manipulation (NOTE: these are installed via brew)
+alias pdfdecryptnew='qpdf --decrypt'
+alias pdfdecrypt='qpdf --decrypt --replace-input'
+# Also - check out pdfcrack
+
 # Add local directories to path, if available (PATH will be exported in top-level bashrc)
 if [ -d /opt/subversion/bin ]; then
       PATH=/opt/subversion/bin:$PATH
