@@ -1,3 +1,5 @@
+# Fig pre block. Keep at the top of this file.
+[[ -f "$HOME/.fig/shell/bashrc.pre.bash" ]] && builtin source "$HOME/.fig/shell/bashrc.pre.bash"
 if [ -d "$HOME/.fig" ] ; then
   # Fig pre block. Keep at the top of this file.
   . "$HOME/.fig/shell/bashrc.pre.bash"
@@ -67,3 +69,5 @@ if [ -d "$HOME/.fig" ] ; then
   . "$HOME/.fig/shell/bashrc.post.bash"
 fi
 
+# Fig post block. Keep at the bottom of this file.
+[[ -f "$HOME/.fig/shell/bashrc.post.bash" ]] && builtin source "$HOME/.fig/shell/bashrc.post.bash"
