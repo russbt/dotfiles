@@ -6,7 +6,7 @@ if [ -d "$HOME/.fig" ] ; then
 fi
 # Save the base part of the hostname. Used to run host-specific scripts
 export HOSTNAME_TRIMMED=`hostname | cut -f1 -d'.' | tr '[:upper:]' '[:lower:]'`
-export DOMAINNAME_TRIMMED=`hostname | cut -f1 -d'.' --complement | tr '[:upper:]' '[:lower:]'`
+export DOMAINNAME_TRIMMED=`hostname -f | cut -f1 -d'.' --complement | tr '[:upper:]' '[:lower:]'`
 
 # Set useful variables
 set sq="'"

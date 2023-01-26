@@ -14,3 +14,4 @@ fi
 
 export RUSS_LS_OPTS='-Fh --color=auto'
 
+export PS1='[\! \[\e[0;32m\]+${SHLVL}\[\e[1;30m\]] \[\033[01;32m\]\u@\h\[\033[00m\]: \[\033[01;34m\]\w\[\033[00m\]\$ '
