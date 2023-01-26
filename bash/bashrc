@@ -6,7 +6,6 @@ if [ -d "$HOME/.fig" ] ; then
 fi
 # Save the base part of the hostname. Used to run host-specific scripts
 export HOSTNAME_TRIMMED=`hostname | cut -f1 -d'.' | tr '[:upper:]' '[:lower:]'`
-export DOMAINNAME_TRIMMED=`hostname -f | cut -f1 -d'.' --complement | tr '[:upper:]' '[:lower:]'`
 
 # Set useful variables
 set sq="'"
@@ -33,18 +32,24 @@ if [ -f ~/dotfiles/bash/os/$OSTYPE.sh ]; then
   source ~/dotfiles/bash/os/$OSTYPE.sh
 fi
 
-# Call domain-specific bashrc. Files ending in "_local" don't get committed to github
-if [ -f ~/dotfiles/bash/domain/$DOMAINNAME_TRIMMED.sh ]; then
-  source ~/dotfiles/bash/domain/$DOMAINNAME_TRIMMED.sh
-elif [ -f ~/dotfiles/bash/domain/${DOMAINNAME_TRIMMED}_local.sh ]; then
-  source ~/dotfiles/bash/domain/${DOMAINNAME_TRIMMED}_local.sh
-fi
-
 # Call host-specific bashrc. Files ending in "_local" don't get committed to github
 if [ -f ~/dotfiles/bash/host/$HOSTNAME_TRIMMED.sh ]; then
   source ~/dotfiles/bash/host/$HOSTNAME_TRIMMED.sh
 elif [ -f ~/dotfiles/bash/host/${HOSTNAME_TRIMMED}_local.sh ]; then
   source ~/dotfiles/bash/host/${HOSTNAME_TRIMMED}_local.sh
+fi
+
+# Call domain-specific bashrc. Files ending in "_local" don't get committed to github
+# This can be disabled on a host-by-host basis (for instance, some VMs take a long time to
+#     time out on returning an empty domain). Disable by setting DOMAINNAME_TRIMMED in the
+#     host-specific file.
+if [ -z ${DOMAINNAME_TRIMMED+x} ]; then
+  export DOMAINNAME_TRIMMED=`hostname -f | cut -f1 -d'.' --complement | tr '[:upper:]' '[:lower:]'`
+fi
+if [ -f ~/dotfiles/bash/domain/$DOMAINNAME_TRIMMED.sh ]; then
+  source ~/dotfiles/bash/domain/$DOMAINNAME_TRIMMED.sh
+elif [ -f ~/dotfiles/bash/domain/${DOMAINNAME_TRIMMED}_local.sh ]; then
+  source ~/dotfiles/bash/domain/${DOMAINNAME_TRIMMED}_local.sh
 fi
 
 # Call local (non-git-committed) bashrc
