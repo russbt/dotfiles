@@ -1,6 +1,13 @@
 # bash setting for OS X
 
 export RUSS_LS_OPTS='-FhG'
+
+# Set a nice prompt
+#   \[ and \] enclose any non-printing output (color change, for example)
+#   \h: short hostname
+#   \W: basename of working directory
+#   \u: username
+#   \[\e[0m\]: Reset to default colors
 PS1='\[\e[0;33m\]\h:\W \u\$\[\e[m\] '
 
 if [ "$RUSS_INTERACTIVE" = "TRUE" ]; then

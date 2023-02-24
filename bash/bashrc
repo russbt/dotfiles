@@ -21,6 +21,7 @@ esac
 export HISTCONTROL=erasedups
 export HISTFILESIZE=5000
 export HISTSIZE=5000
+shopt -s histappend
 
 # Example of testing for interactive mode
 #if [ "$RUSS_INTERACTIVE" = "TRUE" ]; then
