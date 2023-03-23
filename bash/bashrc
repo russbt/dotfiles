@@ -29,6 +29,9 @@ export HISTFILESIZE=5000
 export HISTSIZE=5000
 shopt -s histappend
 
+# Make 'cd' use the 'real' path (PWD won't show symlinked version)
+set -P
+
 # Example of testing for interactive mode
 #if [ "$RUSS_INTERACTIVE" = "TRUE" ]; then
 #  echo "BASHRC"
@@ -77,7 +80,7 @@ export PATH
 # Define useful aliases
 alias h=history
 alias ls='ls $RUSS_LS_OPTS'
-alias ll='ls -l'
+alias ll='ls -ltr'
 alias startvnc='vncserver -geometry 1600x1000 :22'
 alias startvncbig='vncserver -geometry 2400x1350 :22'
 alias stopvnc='vncserver -kill :22'
