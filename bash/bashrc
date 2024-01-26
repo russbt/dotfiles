@@ -1,12 +1,17 @@
 # Fig pre block. Keep at the top of this file.
 [[ -f "$HOME/.fig/shell/bashrc.pre.bash" ]] && builtin source "$HOME/.fig/shell/bashrc.pre.bash"
 
+if [ -d "/etc/bashrc" ] ; then
+  # Start with system bashrc
+  . "/etc/bashrc"
+fi
+
 # Save the base part of the hostname. Used to run host-specific scripts
 export HOSTNAME_TRIMMED=`hostname | cut -f1 -d'.' | tr '[:upper:]' '[:lower:]'`
 
-# Set useful variables
-set sq="'"
-set dq='"'
+# # Set useful variables (aliases for single and double quote)
+# set sq="'"
+# set dq='"'
 
 # Determine whether this is an interactive shell. If not, we skip a lot of setup
 case $- in
@@ -18,6 +23,10 @@ esac
 export HISTCONTROL=erasedups
 export HISTFILESIZE=5000
 export HISTSIZE=5000
+shopt -s histappend
+
+# Make 'cd' use the 'real' path (PWD won't show symlinked version)
+set -P
 
 # Example of testing for interactive mode
 #if [ "$RUSS_INTERACTIVE" = "TRUE" ]; then
@@ -29,9 +38,24 @@ if [ -f ~/dotfiles/bash/os/$OSTYPE.sh ]; then
   source ~/dotfiles/bash/os/$OSTYPE.sh
 fi
 
-# Call host-specific bashrc
+# Call host-specific bashrc. Files ending in "_local" don't get committed to github
 if [ -f ~/dotfiles/bash/host/$HOSTNAME_TRIMMED.sh ]; then
   source ~/dotfiles/bash/host/$HOSTNAME_TRIMMED.sh
+elif [ -f ~/dotfiles/bash/host/${HOSTNAME_TRIMMED}_local.sh ]; then
+  source ~/dotfiles/bash/host/${HOSTNAME_TRIMMED}_local.sh
+fi
+
+# Call domain-specific bashrc. Files ending in "_local" don't get committed to github
+# This can be disabled on a host-by-host basis (for instance, some VMs take a long time to
+#     time out on returning an empty domain). Disable by setting DOMAINNAME_TRIMMED in the
+#     host-specific file.
+if [ -z ${DOMAINNAME_TRIMMED+x} ]; then
+  export DOMAINNAME_TRIMMED=`hostname -f | cut -f1 -d'.' --complement | tr '[:upper:]' '[:lower:]'`
+fi
+if [ -f ~/dotfiles/bash/domain/$DOMAINNAME_TRIMMED.sh ]; then
+  source ~/dotfiles/bash/domain/$DOMAINNAME_TRIMMED.sh
+elif [ -f ~/dotfiles/bash/domain/${DOMAINNAME_TRIMMED}_local.sh ]; then
+  source ~/dotfiles/bash/domain/${DOMAINNAME_TRIMMED}_local.sh
 fi
 
 # Call local (non-git-committed) bashrc
@@ -52,7 +76,7 @@ export PATH
 # Define useful aliases
 alias h=history
 alias ls='ls $RUSS_LS_OPTS'
-alias ll='ls -l'
+alias ll='ls -ltr'
 alias startvnc='vncserver -geometry 1600x1000 :22'
 alias startvncbig='vncserver -geometry 2400x1350 :22'
 alias stopvnc='vncserver -kill :22'
