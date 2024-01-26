@@ -48,7 +48,7 @@ RSTCLR='\e[0m'
 # modify the \w and \W outputs to limit depth printed
 PROMPT_DIRTRIM=2
 
-# set prompt: displays red/green based on last command output, 
+# set prompt: displays red/green based on last command output,
 #   history count and nested shell depth; user @ host;
 #   working directory
-PS1="\[${LTGREY}\][\! +${SHLVL}]\[${RSTCLR}\] \[\`if [ \$? = 0 ]; then echo ${GREEN}; else echo ${RED}; fi\`\]\u@\h\[${RSTCLR}\]: \[${LTBLUE}\]\w\[${RSTCLR}\]\$ "
+PS1="\[${LTGREY}\][\! +${SHLVL}]\[${RSTCLR}\] \[\`if [ \$? = 0 ]; then echo ${GREEN}; else echo ${RED}; fi\`\]\u@\h\[${RSTCLR}\]: \[${LTBLUE}\]\w\[${RSTCLR}\]"'\$ '
