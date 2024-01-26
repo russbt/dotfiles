@@ -1,9 +1,5 @@
 # Fig pre block. Keep at the top of this file.
 [[ -f "$HOME/.fig/shell/bash_profile.pre.bash" ]] && builtin source "$HOME/.fig/shell/bash_profile.pre.bash"
-if [ -d "$HOME/.fig" ] ; then
-  # Fig pre block. Keep at the top of this file.
-  . "$HOME/.fig/shell/bash_profile.pre.bash"
-fi
 # .bash_profile
 
 # Get the aliases and functions
@@ -23,11 +19,6 @@ if [ -d "/Library/Frameworks/Python.framework/Versions/3.8/bin" ] ; then
   PATH="/Library/Frameworks/Python.framework/Versions/3.8/bin:${PATH}"
 fi
 export PATH
-
-if [ -d "$HOME/.fig" ] ; then
-  # Fig post block. Keep at the bottom of this file.
-  . "$HOME/.fig/shell/bash_profile.post.bash"
-fi
 
 # Fig post block. Keep at the bottom of this file.
 [[ -f "$HOME/.fig/shell/bash_profile.post.bash" ]] && builtin source "$HOME/.fig/shell/bash_profile.post.bash"

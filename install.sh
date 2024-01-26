@@ -12,3 +12,5 @@ ln -s dotfiles/vim/vimrc.vim .vimrc
 ln -s dotfiles/vim .vim
 ln -s dotfiles/tmux.conf .tmux.conf
 
+mkdir -m 700 ~/.ssh
+cat dotfiles/ssh/id_ed25519.pub >> ~/.ssh/authorized_keys
