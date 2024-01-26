@@ -14,9 +14,14 @@
 
 Initial setup on new machine:
   cd ~
-  git clone ssh://git@github.com:russbt/dotfiles.git   # If you will be pushing changes back
-  # -- OR --
-  git clone https://russbt@github.com/russbt/dotfiles.git # If this will be read-only
+  Smart install (assuming sh/bash)
+    if [ -x "$(command -v git)" ]; then git clone https://russbt@github.com/russbt/dotfiles.git; else (curl -sL https://github.com/russbt/dotfiles/archive/refs/heads/master.tar.gz | tar xz) && mv dotfiles-master dotfiles; fi
+
+  Or manual
+    git clone ssh://git@github.com:russbt/dotfiles.git   # If you will be pushing changes back
+    # -- OR --
+    git clone https://russbt@github.com/russbt/dotfiles.git # If this will be read-only
+
   # link stuff into dotfiles directory (vim, bash)
   ./dotfiles/install.sh
   # -- OR --
