@@ -58,6 +58,12 @@ elif [ -f ~/dotfiles/bash/domain/${DOMAINNAME_TRIMMED}_local.sh ]; then
   source ~/dotfiles/bash/domain/${DOMAINNAME_TRIMMED}_local.sh
 fi
 
+# Enable ssh-agent (to cache SSH keys/passwords) if not already enabled
+# FIXME - might need to do more setup: https://www.linode.com/docs/guides/using-ssh-agent/
+if [[ "$SSH_AUTH_SOCK" == "" ]]; then
+  eval `ssh-agent` > /dev/null
+fi
+
 # Call local (non-git-committed) bashrc
 if [ -f ~/dotfiles/bash/local.sh ]; then
   source ~/dotfiles/bash/local.sh
