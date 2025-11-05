@@ -21,6 +21,7 @@ fi
 alias gvim='/Applications/MacVim.app/Contents/MacOS/Vim -g'
 alias airport='/System/Library/PrivateFrameworks/Apple80211.framework/Versions/Current/Resources/airport'
 alias airplayreset='sudo pkill coreaudiod'
+alias dnsreset='sudo dscacheutil -flushcache; sudo killall -HUP mDNSResponder'
 
 #PDF manipulation (NOTE: these are installed via brew)
 alias pdfdecryptnew='qpdf --decrypt'

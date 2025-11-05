@@ -1,7 +1,5 @@
-# Fig pre block. Keep at the top of this file.
-[[ -f "$HOME/.fig/shell/bashrc.pre.bash" ]] && builtin source "$HOME/.fig/shell/bashrc.pre.bash"
 
-if [ -d "/etc/bashrc" ] ; then
+if [ -f "/etc/bashrc" ] ; then
   # Start with system bashrc
   . "/etc/bashrc"
 fi
@@ -85,5 +83,3 @@ alias gt='gvim --remote-tab-silent'
 alias filetree="\ls -R | grep ":$" | sed -e 's/:$//' -e 's/[^-][^\/]*\//--/g' -e 's/^/ /' -e 's/-/|/'"
 alias dirs='dirs -v'
 
-# Fig post block. Keep at the bottom of this file.
-[[ -f "$HOME/.fig/shell/bashrc.post.bash" ]] && builtin source "$HOME/.fig/shell/bashrc.post.bash"
