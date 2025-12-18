@@ -1,0 +1,27 @@
+#########################
+# Universal bash/zsh settings
+#  Part 2
+#########################
+
+# Enable ssh-agent (to cache SSH keys/passwords) if not already enabled
+# FIXME - might need to do more setup: https://www.linode.com/docs/guides/using-ssh-agent/
+if [[ "$SSH_AUTH_SOCK" == "" ]]; then
+  eval `ssh-agent` > /dev/null
+fi
+
+# Call local (non-git-committed) bashrc/zshrc
+# NOTE: zsh local file should live in ~/dotfiles/zsh/custom and will get run automatically by oh-my-zsh
+if [[ "$ZSH_VERSION" == "" ]]; then
+  if [ -f ~/dotfiles/bash/local.sh ]; then
+    source ~/dotfiles/bash/local.sh
+  fi
+fi
+
+# Function to ping with a datestamp
+function dateping() {
+  ping $1 $2 $3 $4 $5 | perl -nle 'print scalar(localtime), " ", $_'
+}
+
+# Load global aliases - NOTE this needs to come last so it can use
+# environment variables defined above
+source ~/dotfiles/a_global/aliases

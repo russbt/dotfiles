@@ -1,0 +1,48 @@
+####################################
+# Bash/Zsh settings per OS, domain, host
+#   Note that files ending in "_local*" don't get committed to git
+####################################
+
+# Source other scripts, if they exist. One and only argument is the base path, this
+#   function find base path + {.sh/.zsh, .bazsh, _local.sh/.zsh, _local.bazsh, _aliases}
+# NOTE: .bazsh is my made-up extension for files which can be shared between bash & zsh
+# aliases are presumed to be sharable between both shells
+function find_and_source() {
+  if [ "$ZSH_VERSION" != "" ]; then
+    ext="zsh"
+  else
+    ext="sh"
+  fi
+
+  #echo "Sourcing $1{.$ext,.bazsh,_local.$ext,_local.bazsh,_aliases}"
+  if [ -f $1.$ext ]; then source $1.$ext; fi
+  if [ -f $1.bazsh ]; then source $1.bazsh; fi
+  if [ -f $1_local.$ext ]; then source $1_local.$ext; fi
+  if [ -f $1_local.bazsh ]; then source $1_local.bazsh; fi
+  if [ -f $1_aliases ]; then source $1_aliases; fi
+}
+
+# Call OS-specific bashrc. Note that for darwin* (MacOS) we just use "darwin"
+NEWOSTYPE=$OSTYPE
+if [[ $OSTYPE == darwin* ]]; then NEWOSTYPE="darwin"; fi
+find_and_source ~/dotfiles/a_os/$NEWOSTYPE
+
+# Save the base part of the hostname. Used to run host-specific scripts
+export HOSTNAME_TRIMMED=`hostname | cut -f1 -d'.' | tr '[:upper:]' '[:lower:]'`
+# Call host-specific bashrc
+find_and_source  ~/dotfiles/a_host/$HOSTNAME_TRIMMED
+
+# Call domain-specific bashrc. Files ending in "_local" don't get committed to github
+# This can be disabled on a host-by-host basis (for instance, some VMs take a long time to
+#     time out on returning an empty domain). Disable by setting DOMAINNAME_TRIMMED in the
+#     host-specific file.
+if [ -z ${DOMAINNAME_TRIMMED+x} ]; then
+  # NOTE - does MacOS not support --complement so use a different command
+  if [[ $NEWOSTYPE == "darwin" ]]; then
+    export DOMAINNAME_TRIMMED=`scutil --dns | grep 'search domain' | head -n 1 | grep -o '[a-zA-Z0-9.-]\+$'`
+  else
+    export DOMAINNAME_TRIMMED=`hostname -f | cut -f1 -d'.' --complement | tr '[:upper:]' '[:lower:]'`
+  fi
+  find_and_source ~/dotfiles/a_domain/$DOMAINNAME_TRIMMED
+fi
+

@@ -1,0 +1,45 @@
+#########################
+# Universal bash/zsh settings
+#   Part 1 (more after OS, host, and domain sections)
+#########################
+
+# # Set useful variables (aliases for single and double quote)
+# set sq="'"
+# set dq='"'
+
+# Determine whether this is an interactive shell. If not, we skip a lot of setup
+if [ "$ZSH_VERSION" != "" ]; then
+    if [[ -o interactive ]]; then
+    export RUSS_INTERACTIVE=TRUE
+    fi
+
+    # Make history more useful
+    export HISTSIZE=50000
+    export SAVEHIST=50000
+    setopt SHARE_HISTORY # different shells immediately see each others command history
+    setopt HIST_IGNORE_SPACE # Don't save commands that start with space
+    setopt hist_expire_dups_first # If expiring old commands, get rid of duplicates before unique commands
+
+    # Make 'cd' use the 'real' path (PWD won't show symlinked version)
+    setopt chase_links
+else
+    case $- in
+        *i*)    export RUSS_INTERACTIVE=TRUE
+        ;;
+    esac
+
+    # Make history more useful
+    export HISTCONTROL=ignoreboth # Don't save duplicates, don't save commands starting with space
+    export HISTFILESIZE=10000
+    export HISTSIZE=10000
+    shopt -s histappend
+
+    # Make 'cd' use the 'real' path (PWD won't show symlinked version)
+    set -P
+fi
+
+# Example of testing for interactive mode
+#if [ "$RUSS_INTERACTIVE" = "TRUE" ]; then
+#  echo "Interactive mode"
+#fi
+

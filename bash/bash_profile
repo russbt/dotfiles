@@ -1,16 +1,14 @@
-# Fig pre block. Keep at the top of this file.
-[[ -f "$HOME/.fig/shell/bash_profile.pre.bash" ]] && builtin source "$HOME/.fig/shell/bash_profile.pre.bash"
 # .bash_profile
 
 # Get the aliases and functions
 if [ -f ~/dotfiles/bash/bashrc ]; then
-        . ~/dotfiles/bash/bashrc
+  . ~/dotfiles/bash/bashrc
 fi
 
 
 # set PATH so it includes user's private bin if it exists
 if [ -d "$HOME/bin" ] ; then
-    PATH="$HOME/bin:$PATH"
+  PATH="$HOME/bin:$PATH"
 fi
 
 # Setting PATH for Python 3.8 (is this for Fig?)
@@ -19,6 +17,3 @@ if [ -d "/Library/Frameworks/Python.framework/Versions/3.8/bin" ] ; then
   PATH="/Library/Frameworks/Python.framework/Versions/3.8/bin:${PATH}"
 fi
 export PATH
-
-# Fig post block. Keep at the bottom of this file.
-[[ -f "$HOME/.fig/shell/bash_profile.post.bash" ]] && builtin source "$HOME/.fig/shell/bash_profile.post.bash"

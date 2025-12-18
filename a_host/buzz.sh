@@ -1,8 +1,4 @@
-# bash setting for host compute4
-
-#alias ss=/apps/smartsvn/latest/bin/smartsvn.sh
-
-# Add local directories to path, if available (PATH will be exported in top-level bashrc)
+# Add local directories to path, if available.
 if [ -d /Users/russ/local/gcc-arm-none-eabi-latest/bin ]; then
       PATH=$PATH:/Users/russ/local/gcc-arm-none-eabi-latest/bin
 fi
@@ -15,8 +11,4 @@ fi
 if [ -d /Users/russ/Trango/flutter/bin ]; then
       PATH=$PATH:/Users/russ/Trango/flutter/bin
 fi
-
-# Don't set up tools when in a non-interactive shell, so they can be updated per-window
-#if [ "$RUSS_INTERACTIVE" = "TRUE" ]; then
-  #export MODELSIM=/apps/common/xilinx_libs/modelsim.ini
-#fi
+export PATH

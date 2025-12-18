@@ -1,8 +1,3 @@
-if [ -f "/etc/bashrc" ] ; then
-  # Start with system bashrc
-  . "/etc/bashrc"
-fi
-
 # Behaviors which are similar between bash and zsh have moved to
 #   a common location
 source ~/dotfiles/bash_zsh_common/01_shell_settings

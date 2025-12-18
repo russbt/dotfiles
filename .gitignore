@@ -13,3 +13,7 @@ Thumbs.db
 .*.swp
 .netrwhist
 
+# Locally installed, not part of this repo #
+############################################
+.oh-my-zsh
+

@@ -2,7 +2,7 @@
 unset noclobber
 
 # set depth of command history
-setenv savehist "1000 merge lock"
+setenv savehist "5000 merge lock"
 setenv histfile "~/.history"
 
 # set a useful prompt
@@ -29,6 +29,40 @@ bindkey '^[[1;5C' forward-word
 # load history
 history -L
 
-# get Verdi to load my custom configurations
-setenv NOVAS_AUTO_SOURCE "${HOME}/dotfiles/verdi_startup.tcl"
+####################################
+# Tcsh settings per OS, domain, host
+#   Note that files ending in "_local*" don't get committed to git
+####################################
 
+# Call OS-specific tcshrc
+if ( -f ~/dotfiles/a_os/${OSTYPE}.csh ) then
+  source ~/dotfiles/a_os/${OSTYPE}.csh
+endif
+if ( -f ~/dotfiles/a_os/${OSTYPE}_local.csh ) then
+  source ~/dotfiles/a_os/${OSTYPE}_local.csh
+endif
+if ( -f ~/dotfiles/a_os/${OSTYPE}_aliases ) then
+  cat ~/dotfiles/a_os/${OSTYPE}_aliases |grep "^alias"|sed 's/=/ /'|source -
+endif
+
+# find_and_source ~/dotfiles/a_os/$NEWOSTYPE
+
+# # Save the base part of the hostname. Used to run host-specific scripts
+# export HOSTNAME_TRIMMED=`hostname | cut -f1 -d'.' | tr '[:upper:]' '[:lower:]'`
+# # Call host-specific bashrc
+# find_and_source  ~/dotfiles/a_host/$HOSTNAME_TRIMMED
+
+# # Call domain-specific bashrc. Files ending in "_local" don't get committed to github
+# # This can be disabled on a host-by-host basis (for instance, some VMs take a long time to
+# #     time out on returning an empty domain). Disable by setting DOMAINNAME_TRIMMED in the
+# #     host-specific file.
+# if [ -z ${DOMAINNAME_TRIMMED+x} ]; then
+#   # FIXME - does MacOS not support --complement? What is this for?
+#   export DOMAINNAME_TRIMMED=`hostname -f | cut -f1 -d'.' --complement | tr '[:upper:]' '[:lower:]'`
+#   find_and_source ~/dotfiles/a_domain/$DOMAINNAME_TRIMMED
+# fi
+
+# Source
+if ( -d $HOME/local/lib ) then
+  setenv LD_LIBRARY_PATH "${HOME}/local/lib:${LD_LIBRARY_PATH}"
+endif

@@ -1,0 +1,11 @@
+# useful aliases (applicable to all shells, although csh needs the '=' removed')
+alias h=history
+alias ls='ls $RUSS_LS_OPTS'
+alias ll='ls -ltrh'
+alias startvnc='vncserver -geometry 1600x1000 :22'
+alias startvncbig='vncserver -geometry 2400x1350 :22'
+alias stopvnc='vncserver -kill :22'
+alias g='gvim'
+alias gt='gvim --remote-tab-silent'
+alias filetree="\ls -R | grep ":$" | sed -e 's/:$//' -e 's/[^-][^\/]*\//--/g' -e 's/^/ /' -e 's/-/|/'"
+alias dirs='dirs -v'

@@ -1,1 +1,0 @@
-compute4.sh
