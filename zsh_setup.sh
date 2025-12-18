@@ -21,6 +21,9 @@ if [ "`which -s zsh; echo $?`" != "0" ]; then
 
   if [ -d ~/dotfiles/.oh-my-zsh ]; then
     # Success installing - link configs
+    git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
+    git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting
+
     mv -f .zshrc .zshrc.off
     ln -s dotfiles/zsh/zshrc .zshrc
     mv -f .p10k.zsh .p10k.zsh.off
