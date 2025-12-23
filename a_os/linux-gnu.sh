@@ -12,8 +12,6 @@ if [ "$RUSS_INTERACTIVE" = "TRUE" ]; then
   bind '"\e[5D": backward-word'
 fi
 
-export RUSS_LS_OPTS='-Fh --color=auto'
-
 # Set a nice prompt
 
 # Useful references:

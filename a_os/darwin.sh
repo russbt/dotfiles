@@ -1,7 +1,5 @@
 # bash setting for OS X
 
-export RUSS_LS_OPTS='-FhG'
-
 # Set a nice prompt
 #   \[ and \] enclose any non-printing output (color change, for example)
 #   \h: short hostname

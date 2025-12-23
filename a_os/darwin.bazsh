@@ -1,0 +1,2 @@
+# Nicer LS output - color, suffixes, and human-readable sizes
+export RUSS_LS_OPTS='-FhG'
