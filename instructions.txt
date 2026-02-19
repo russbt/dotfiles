@@ -35,3 +35,5 @@ Change/add a file:
 Get updates from somewhere else:
   git pull origin master
 
+Recommended font for Zsh/Powerline is JetBrainsMonoNL w/NerdFont patch. In terminal, set font to JetBrainsMonoNL NFM Regular 18
+https://github.com/ryanoasis/nerd-fonts/releases
