@@ -1,18 +1,19 @@
-#!/bin/sh
+#!/usr/bin/env sh
+
+function backup_and_link() {
+  if [[ -e $1 && ! -L $1 ]]; then mv -f $1 $1.off; ln -s $2 $1;
+  elif [[ -L $1 ]]; then echo "$1 is already a symlink - not modifying";
+  else ln -s $2 $1;
+  fi
+}
+
 cd ~
-mv -f .bashrc .bashrc.off
-mv -f .bash_profile .bash_profile.off
-mv -f .vim .vim.off
-mv -f .vimrc .vimrc.off
-mv -f .tmux.conf .tmux.conf.off
+backup_and_link .bashrc dotfiles/bash/bashrc
+backup_and_link .bash_profile dotfiles/bash/bash_profile
+backup_and_link .vim dotfiles/vim
+backup_and_link .vimrc dotfiles/vim/vimrc.vim
+backup_and_link .tmux.conf dotfiles/tmux.conf
 
-ln -s dotfiles/bash/bashrc .bashrc
-ln -s dotfiles/bash/bash_profile .bash_profile
-ln -s dotfiles/vim/vimrc.vim .vimrc
-ln -s dotfiles/vim .vim
-ln -s dotfiles/tmux.conf .tmux.conf
-
-# Create directory (if not already there) for local setup
 # If zsh is available, install zsh setup
 source ~/dotfiles/zsh_setup.sh
 
