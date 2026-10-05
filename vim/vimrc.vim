@@ -21,6 +21,7 @@
 "   Align                 : http://www.vim.org/scripts/script.php?script_id=294
 "   MultipleSearch        : http://www.vim.org/scripts/script.php?script_id=479
 "   peaksea               : http://vim.sourceforge.net/scripts/script.php?script_id=760
+"   Resize-font           : https://github.com/eggbean/resize-font.gvim
 "
 " Useful key-combos:
 "   --Tabs--
@@ -135,22 +136,86 @@ source $VIMRUNTIME/mswin.vim
 "    This font should be available (free) on anything modern-ish:
 "        https://fonts.google.com/specimen/Inconsolata
 
+" fixme -linux only
+function! FontExists(font)
+  " Checks system for the font name
+  return system("fc-list -q '" . a:font . "'") == 0
+endfunction
+"if FontExists('Fira Code')
+"  set guifont=Fira\ Code:h12
+"else
+"  set guifont=Monospace\ 12
+"endif
+"
+
 " Font selection
-if has("gui_running")
-  if has("gui_gtk2")
-    " Redhat, etc
-    set guifont=Consolas\ 12,Inconsolata\ 12,Monospace\ 12
-  elseif has("gui_macvim")
-    " MacVim (OS X)
-    set guifont=Consolas:h18,Inconsolata:h18
-  elseif has("X11")
-    " Some other unix-y flavor
-    set guifont=Consolas\ 12,Inconsolata\ 12,Monospace\ 12,-adobe-courier-medium-r-normal-*-*-140-*-*-m-*-iso10646-1
-  else
-    " Windows
-    set gfn=Consolas:h12:cDEFAULT
-  endif
+if has("autocmd")
+  function! SetGuiFont()
+    if has("gui_gtk")
+      " Redhat, etc
+      if FontExists('DejaVu Sans Mono')
+        let &guifont="DejaVu Sans Mono 16"
+      elseif FontExists('Consolas')
+        let &guifont="Consolas 16"
+      elseif FontExists('Inconsolata')
+        let &guifont="Inconsolata 16"
+      elseif FontExists('Monospace')
+        let &guifont="Monospace 12"
+      endif
+    elseif has("gui_macvim")
+      " MacVim (OS X)
+      try
+        let &guifont="Consolas:h18,Inconsolata:h18"
+      endtry
+    elseif has("X11")
+      " Some other unix-y flavor
+      try
+        let &guifont=Consolas\ 12,Inconsolata\ 12,Monospace\ 12,-adobe-courier-medium-r-normal-*-*-140-*-*-m-*-iso10646-1
+      endtry
+    elseif has("win32") || has("win64")
+      " Windows
+      try
+        let &guifont="Consolas:h12:cDEFAULT"
+      catch
+        " font does not exists, fall back to default
+        let &guifont="Courier_New:h10:cANSI"
+      endtry
+    endif
+  endfunction
+  call SetGuiFont()
+
+  "if !exists('#VimStartup#GuiEnter')
+  "  augroup VimStartup
+  "    au!
+  "    autocmd GuiEnter * :call SetGuiFont()
+  "  augroup end
+  "endif
 endif
+
+"if has("autocmd")
+"  function! SetGuiFont()
+"    if has("gui_gtk") && !(has("win32") || has("win64"))
+"      "let &guifont="Ubuntu Mono derivative Powerline 12"
+"      if FontExists('DejaVu Sans Mono')
+"       
+"    elseif has("win32") || has("win64")
+"      try
+"        let &guifont="DejaVu_Sans_Mono_for_Powerline:h12:cANSI:qDRAFT"
+"      catch
+"        " font does not exists, fall back to default
+"        let &guifont="Courier_New:h10:cANSI"
+"      endtry
+"    " optionally: add statements for other guis
+"    endif
+"  endfunction
+"
+"  if !exists('#VimStartup#GuiEnter')
+"    augroup VimStartup
+"      au!
+"      autocmd GuiEnter * :call SetGuiFont()
+"    augroup end
+"  endif
+"endif
 
 " Enable adjusting the font size on the fly
 " from:  http://vim.wikia.com/wiki/Change_font_size_quickly
