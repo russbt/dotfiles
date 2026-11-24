@@ -43,6 +43,6 @@ if [ -z ${DOMAINNAME_TRIMMED+x} ]; then
   else
     export DOMAINNAME_TRIMMED=`hostname -f | cut -f1 -d'.' --complement | tr '[:upper:]' '[:lower:]'`
   fi
-  find_and_source ~/dotfiles/a_domain/$DOMAINNAME_TRIMMED
 fi
+find_and_source ~/dotfiles/a_domain/$DOMAINNAME_TRIMMED
 
